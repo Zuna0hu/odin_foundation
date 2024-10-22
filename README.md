@@ -6,6 +6,7 @@ It mainly focuses on full-stack development using HTML, CSS, JavaScript, and Rub
 
 ## Technologies Used
 - **HTML**: For structuring the webpages.
+- **CSS**: For styling and visually enhancing the webpage's layout and design.
 - **Git**: For version control.
 - **Linux System**: For setting up the development environment and managing files.
 
