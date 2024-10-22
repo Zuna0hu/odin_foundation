@@ -1,5 +1,5 @@
 /* selector, property and value */
-
+/* type selector */
 div {
     color: white;
 }
@@ -16,4 +16,28 @@ div {
 /* for ID selectors, use # */
 #title {
     background-color: red;
+}
+
+
+/* grouping selector */
+/* if we have two groups of elements that share some of style */
+
+.read,
+.unread {
+  color: white;
+  background-color: black;
+}
+
+.read {
+  /* several unique declarations */
+  font-style: italic;
+  text-decoration: underline;
+  opacity: 0.8;
+}
+
+.unread {
+  /* several unique declarations */
+  font-weight: bold;
+  border: 2px solid white;
+  letter-spacing: 1px;
 }
