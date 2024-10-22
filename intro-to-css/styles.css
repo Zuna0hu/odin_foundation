@@ -3,3 +3,17 @@
 div {
     color: white;
 }
+
+
+
+/* class selector will select all elements with the given class */
+/* for class selectors, use . */
+.alert-text {
+    color: red;
+}
+
+/* ID selectors select an element with the given ID */
+/* for ID selectors, use # */
+#title {
+    background-color: red;
+}
