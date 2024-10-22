@@ -41,3 +41,13 @@ div {
   border: 2px solid white;
   letter-spacing: 1px;
 }
+
+/* chaining selector */
+/* when an element belongs to both class 1 and class 2 */
+.subsection.header {
+    color: red;
+  }
+/* when an element belongs to a class and an ID */
+.subsection#preview {
+    color: blue;
+}  
