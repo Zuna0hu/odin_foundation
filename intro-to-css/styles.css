@@ -4,6 +4,14 @@ div {
     color: white;
 }
 
+/* adjust img size using auto */
+
+img {
+    height: auto;
+    /* keep the original proportion of image */
+    width: 500px; 
+    /* no space between 500 and px */
+}
 
 
 /* class selector will select all elements with the given class */
