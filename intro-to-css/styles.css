@@ -85,3 +85,8 @@ img {
 .main .list {
   color: red;
 }
+
+/* order of specificity: ID > Class > Type */
+#subsection-id {
+  color: blue;
+}
