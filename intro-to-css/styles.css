@@ -100,3 +100,14 @@ img {
 .main #subsection-2-content {
  color: red;
 }
+
+
+/* inheritance */
+/* directly targeting an element always beats inheritance */
+#parent {
+  color: red;
+}
+
+.child {
+  color: blue;
+}
