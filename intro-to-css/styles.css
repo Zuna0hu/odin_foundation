@@ -90,3 +90,13 @@ img {
 #subsection-id {
   color: blue;
 }
+
+/* one ID vs. one ID and one class */
+#subsection {
+  background-color: yellow;
+  color: blue;
+}
+
+.main #subsection {
+ color: red;
+}
