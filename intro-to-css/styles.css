@@ -111,3 +111,12 @@ img {
 .child {
   color: blue;
 }
+
+/* if after all, there is still a tie */
+/* the last rule wins */
+.alert {
+  color: red;
+}
+.warning {
+  color: yellow;
+}
