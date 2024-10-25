@@ -69,3 +69,19 @@ img {
     color: purple;
 }
   
+
+
+
+/* practice for the cascade of css */
+
+/* rule 1 */
+/* one class selector*/
+.subsection {
+  color: blue;
+}
+
+/* rule 2 */
+/* two class selectors, so it is more specific */
+.main .list {
+  color: red;
+}
