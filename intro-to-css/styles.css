@@ -87,16 +87,16 @@ img {
 }
 
 /* order of specificity: ID > Class > Type */
-#subsection-id {
+#subsection-1-content {
   color: blue;
 }
 
 /* one ID vs. one ID and one class */
-#subsection {
+#subsection-2-content {
   background-color: yellow;
   color: blue;
 }
 
-.main #subsection {
+.main #subsection-2-content {
  color: red;
 }
