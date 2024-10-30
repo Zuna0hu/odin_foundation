@@ -1,0 +1,29 @@
+.box-one {
+    box-sizing: content-box;
+    /* the size of the content box is 700*300 */
+    width: 700px;
+    height: 300px;
+
+    background-color: red;
+    padding: 10px;
+    border: 20px solid purple;
+    margin: 100px;
+
+    text-align: center;
+    font-size: x-large;
+}
+
+.box-two {
+    box-sizing: border-box;
+    /* the size of the border box (border + padding + content) is 700*300 */
+    width: 700px;
+    height: 300px;
+
+    background-color: blue;
+    padding: 10px;
+    border: 30px solid purple;
+    margin: 100px;
+
+    text-align: center;
+    font-size: x-large;
+}
