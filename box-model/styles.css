@@ -6,6 +6,7 @@
 
     background-color: red;
     padding: 10px;
+    /* need to include border-width, border-style and border-color */
     border: 20px solid purple;
     margin: 100px;
 
@@ -26,4 +27,20 @@
 
     text-align: center;
     font-size: x-large;
+}
+
+.container {
+    border: 5px solid blue;
+
+    width: 300px;
+    height: 300px;
+}
+
+.box {
+    border: 5px solid purple;
+    margin-top: 30px;
+    margin-right: 40px;
+    margin-bottom: 50px;
+    /* 4 em is four times the current font size of the element */
+    margin-left: 4em; 
 }
