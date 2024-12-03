@@ -25,6 +25,62 @@ We may encounter SQL in progeamming languages too. Ruby on Rails, for example, w
 
 A well-designed database is like the foundations of a house, and learning SQL and relational database concepts will help you build your applications on a strong foundation. Since databases are such a key part of almost all web applications, understanding the language of databases and how they work is a vital step towards becoming a well-rounded web-developer.
 
+### Schema
+The **setup information** for your database is stored in a special file called the “Schema” (after setting up the database) , and this is updated whenever you make changes to the structure of your database.
+
+Think of the schema as saying “here’s our database and it’s got a couple tables. The first table is ‘users’ and it’s got columns for ‘ID’ (which is an integer), ‘name’ (which is a bunch of characters), ‘email’ (which is a bunch of characters) …”
+
+### SQL Statements 
+Like SELECT, CREATE TABLE, UPDATE, DELETE and more.
+
+To set up the database: `CREATE DATABASE`.
+
+To set up an individual table: `CREATE TABLE`.
+
+To only allow unique values in a particular column (e.g. for usernames) in your database or to index a column for faster searching later: `CREATE INDEX`. It creates indexes in columns that you’ll likely be using to search on later (like username)… it will make your database much faster.
+
+Use `;` at the end of each SQL code line.
+
+Once your database is set up and you’ve got empty tables to work with, you use SQL’s statements to start populating it. The main actions you want to do are CRUD (which we’ve seen before) – Create, Read, Update, and Destroy.
+
+“Create” queries use `INSERT INTO` and you’ll need to specify which columns to insert stuff into and then which values to put in those columns, which looks something like `INSERT INTO users (name, email) VALUES ('foobar','foo@bar.com');`. This is one of the few queries that you don’t need to be careful about which rows you’ve selected since you’re actually just adding new ones into the table.
+
+### SQL Clauses 
+Like WHERE, LIKE, DISTINCT and more.
+
+#### CRUD with Clauses
+Every CRUDdy command in SQL contains a few parts – the action (`statement`), the table it should run on, and the conditions (`clauses`). If you just do an action on a table without specifying conditions, it will apply to the whole database and you’ll probably break something.
+
+For “Destroy” queries, the classic mistake is typing `DELETE FROM users` **without** a WHERE clause, which removes all your users from the table. You probably needed to delete just one user, who you would specify based on some (hopefully unique) attribute like “name” or “id” as part of your condition clause, e.g. `DELETE FROM users WHERE users.id = 1`. You can do all kinds of common sense things, such as using comparison operators (>, <, <= etc.) to specify groups of rows to run commands on, or logical operators (AND, OR, NOT etc.) to chain multiple clauses together, e.g. `DELETE FROM users WHERE id > 12 AND name = 'foo'`.
+
+“Update” queries use `UPDATE` and you’ll need to tell it what data to `SET` (using key=”value” pairs) and which rows to do those updates for. Be careful because if your `WHERE` clause finds multiple rows (e.g. if you’ve searched based on a common first name), they’ll all get updated. A standard query for updating a user’s email may look something like the following (though in the real world you’d search on ID because it’s always unique):
+
+```SQL
+UPDATE users
+SET name='barfoo', email='bar@foo.com'
+WHERE email='foo@bar.com';
+```
+
+“Read” queries, which use `SELECT`, are the most common, e.g. `SELECT * FROM users WHERE created_at < '2013-12-11 15:35:59 -0800'`. The * you see just says “all the columns”. Specify a column using both the **table name** and the **column name**. You can get away with just the column name for queries of one table, but as soon as there is more than one table involved, SQL will yell at you so just always specify the table name: `SELECT users.id, users.name FROM users`.
+
+A close cousin of `SELECT`, for if you only want unique values of a column, is `SELECT DISTINCT`. Say you want a list of all the different names of your users without any duplicates… try `SELECT DISTINCT users.name FROM users`.
+
+#### JOIN Command
+If you want to get all the posts created by a given user, you need to tell SQL which columns it should use to zip the tables together with the `ON` clause. Perform the “zipping” with the `JOIN` command. 
+
+If you mash two tables together where the data doesn’t perfectly match up (e.g. there are multiple posts for one user), which rows do you actually keep? There are four different possibilities:
+
+- **INNER JOIN**: Aka JOIN – Your best friend and 95% of what you’ll use. Keeps only the rows from both tables where they match up. If you asked for all the posts for all users (`SELECT * FROM users JOIN posts ON users.id = posts.user_id`), it would return only the users who have actually written posts and only posts which have specified their author in the user_id column. If an author has written multiple posts, there will be multiple rows returned (but the columns containing the user data will just be repeated).
+
+### SQL Functions 
+Like AVG, COUNT, SUM and more.
+
+### SQL Indexes 
+What they are good for.
+
+### Difference Between WHERE and HAVING
+
+
 ## The Importance of Data
 As human beings, we are limited in our capacity to remember things. Having tools that allow immediate access and analysis of data enables us to make better decisions.
 
