@@ -76,6 +76,12 @@ Worksheet | Table
 Worksheet Column | Table Column
 Worksheet Row | Table Row
 ```
+### Primary Key and Foreign Key
+Keys are one of the most important elements in a relational database to maintain the relationship between the tables and it also helps in uniquely identifying the data from a table. 
+
+The primary key is a key that helps uniquely identify the tuple of the database. For example, student ID.
+
+In contrast, the Foreign Key is a key used to determine the relationship between the tables through the primary key of one table that is the primary key of one table acts as a foreign key to another table. One example is the Game Store Database in the following section.
 
 ### Relational Database Management Systems
 After sharing and adding information to the spreadsheet, with the amount of information increases, we will encounter issues with **duplicate data**, **typos**, perhaps even **formatting** issues. 
