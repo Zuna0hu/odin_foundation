@@ -68,9 +68,134 @@ A close cousin of `SELECT`, for if you only want unique values of a column, is `
 #### JOIN Command
 If you want to get all the posts created by a given user, you need to tell SQL which columns it should use to zip the tables together with the `ON` clause. Perform the “zipping” with the `JOIN` command. 
 
-If you mash two tables together where the data doesn’t perfectly match up (e.g. there are multiple posts for one user), which rows do you actually keep? There are four different possibilities:
+If you mash two tables together where the data doesn’t perfectly match up (e.g. there are multiple posts for one user), which rows do you actually keep? 
 
-- **INNER JOIN**: Aka JOIN – Your best friend and 95% of what you’ll use. Keeps only the rows from both tables where they match up. If you asked for all the posts for all users (`SELECT * FROM users JOIN posts ON users.id = posts.user_id`), it would return only the users who have actually written posts and only posts which have specified their author in the user_id column. If an author has written multiple posts, there will be multiple rows returned (but the columns containing the user data will just be repeated).
+Take the following two tables as example:
+
+```Bash
+id name       id  name
+-- ----       --  ----
+1  Pirate     1   Rutabaga
+2  Monkey     2   Pirate
+3  Ninja      3   Darth Vader
+4  Spaghetti  4   Ninja
+```
+
+
+There are four different possibilities:
+
+- **INNER JOIN**: Aka JOIN – Your best friend and 95% of what you’ll use. It produces only the set of records that match in both Table A and Table B.
+
+Keeps only the rows from both tables where they match up. If you asked for all the posts for all users (`SELECT * FROM users JOIN posts ON users.id = posts.user_id`), it would return only the users who have actually written posts and only posts which have specified their author in the user_id column. If an author has written multiple posts, there will be multiple rows returned (but the columns containing the user data will just be repeated).
+
+It can be seen as **A ∩ B**:
+
+```SQL
+SELECT * FROM TableA
+INNER JOIN TableB
+ON TableA.name = TableB.name
+id  name       id   name
+
+
+
+1   Pirate     2    Pirate
+
+3   Ninja      4    Ninja
+```
+
+---
+
+- **FULL OUTER JOIN**: Keep **all rows** from all tables, even if there are mismatches between them. Set any mismatched cells to NULL. It produces the set of all records in Table A and Table B, with matching records from both sides where available. If there is no match, the missing side will contain null.
+
+It can be seen as **A ∪ B**:
+
+```SQL
+SELECT * FROM TableA
+FULL OUTER JOIN TableB
+ON TableA.name = TableB.name
+id    name       id    name
+
+
+
+1     Pirate     2     Pirate
+
+2     Monkey     null  null
+
+3     Ninja      4     Ninja
+
+4     Spaghetti  null  null
+
+null  null       1     Rutabaga
+
+null  null       3     Darth Vader
+```
+
+---
+
+- **LEFT OUTER JOIN**: Keep all the rows from the left table and add on any rows from the right table which match up to the left table’s. Set any empty cells this produces to NULL. E.g. return all the users whether they have written posts or not. If they do have posts, list those posts as above. If not, set the columns we asked for from the “posts” table to NULL.
+
+In short, it produces a complete set of records from Table A, with the matching records (where available) in Table B. If there is no match, the right side will contain null.
+
+It can be seen as **A**:
+
+```SQL
+SELECT * FROM TableA
+LEFT OUTER JOIN TableB
+ON TableA.name = TableB.name
+
+id  name       id    name
+--  ----       --    ----
+1   Pirate     2     Pirate
+2   Monkey     null  null
+3   Ninja      4     Ninja
+4   Spaghetti  null  null
+```
+
+---
+
+- **RIGHT OUTER JOIN**: The opposite… keep all rows in the right table.
+
+- **How to Get (A ∩ (!B))**: It is equal to getting the set of records only in A but not in B.
+
+We can use a `LEFT OUTER JOIN` along with a `WHERE` clause:
+
+```SQL
+SELECT * FROM TableA
+LEFT OUTER JOIN TableB
+ON TableA.name = TableB.name
+WHERE TableB.id IS null
+id  name       id     name
+
+
+
+2   Monkey     null   null
+
+4   Spaghetti  null   null
+
+```
+
+---
+
+- **How to Get (A ∩ (!B)) ∪ ((!A) ∩ B)**: To produce the set of records unique to Table A and Table B, we perform the same full outer join, then exclude the records we don't want from both sides via a where clause.
+
+```SQL
+SELECT * FROM TableA
+FULL OUTER JOIN TableB
+ON TableA.name = TableB.name
+WHERE TableA.id IS null
+OR TableB.id IS null
+id    name       id    name
+
+
+
+2     Monkey     null  null
+
+4     Spaghetti  null  null
+
+null  null       1     Rutabaga
+
+null  null       3     Darth Vader
+```
 
 ### SQL Functions 
 Like AVG, COUNT, SUM and more.
