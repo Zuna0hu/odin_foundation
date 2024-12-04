@@ -37,6 +37,7 @@ To set up the database: `CREATE DATABASE`.
 
 To set up an individual table: `CREATE TABLE`.
 
+- **What is Index Good for**:
 To only allow unique values in a particular column (e.g. for usernames) in your database or to index a column for faster searching later: `CREATE INDEX`. It creates indexes in columns that you’ll likely be using to search on later (like username)… it will make your database much faster.
 
 Use `;` at the end of each SQL code line.
@@ -233,13 +234,67 @@ OrderID	CustomerName	OrderDate
 ```
 
 ### SQL Functions 
-Like AVG, COUNT, SUM and more.
+Like `AVG`, `COUNT`, `SUM` and more.
 
-### SQL Indexes 
-What they are good for.
+Sometimes you want to just return a single relevant value that aggregates a column, like the `COUNT` of posts a user has written. Use one of the helpful “aggregate” functions offered by SQL to do that. Include the function as a part of the SELECT statement, like `SELECT MAX(users.age) FROM users`.
 
-### Difference Between WHERE and HAVING
+The function will operate on just a single column unless you specify *, which only works for some functions like COUNT (because you can not use `MAX` on the column of “name”?).
 
+#### Alias
+We can use aliases (`AS`) to rename columns or aggregate functions so you can call them by that alias later, e.g. `SELECT MAX(users.age) AS highest_age FROM users` will return a column called highest_age with the maximum age in it.
+
+
+#### GROUP BY
+
+When you want to use aggregate functions like `COUNT` on very specific chunks of your data and then group them together, e.g. displaying the `COUNT` of posts for EACH user (as opposed to the count of all posts by all users). The commands would look like:
+
+```SQL
+SELECT users.id, users.name, COUNT(posts.id) AS posts_written
+FROM users
+JOIN posts ON users.id = posts.user_id
+GROUP BY users.id, users.name;
+```
+
+Grouping by `users.name` in addition to `users.id` improves clarity and aligns with best practices by explicitly including all selected non-aggregated columns in the GROUP BY clause, though it might not be strictly necessary for most databases.
+
+#### HAVING
+
+If you want to only display a subset of your data. In a normal situation, you’d use a `WHERE` clause to narrow it down. 
+
+But if you’ve used an aggregate function like `COUNT` (say to get the count of posts written for each user in the example above), `WHERE` won’t work anymore. 
+
+So to conditionally retrieve records based on aggregate functions, you use the `HAVING` function, **which is essentially the `WHERE` for aggregates**. So say you only want to display users who have written more than 10 posts:
+
+```SQL
+SELECT users.id, users.name, COUNT(posts.id) AS posts_written
+FROM users
+JOIN posts ON users.id = posts.user_id
+GROUP BY users.id, users.name
+HAVING COUNT(posts.id) >= 10;
+```
+
+In this [practice website](https://www.w3schools.com/sql/trysql.asp?filename=trysql_select_groupby), we can use `HAVING` to get the number of orders in each country when it is greater than 100:
+
+```SQL
+SELECT COUNT(CustomerID) AS UserAmount, Country
+FROM Customers
+GROUP BY Country
+HAVING COUNT(CustomerID) > 10;
+```
+
+### SQL is Fast
+
+Learning this stuff is particularly relevant because it’s MUCH faster for you to build queries that use SQL intelligently than to just grab a whole bunch of data out of your database and then use a programming language (like Ruby or JavaScript) to process it. 
+
+For instance, if you want all the unique names of your users, you COULD just grab the whole list from your database using SQL like `SELECT users.name FROM users` then use a JavaScript/Ruby method to remove duplicates… but that requires you to pull all that data out of your database and then put it into memory and then iterate through it in your code. 
+
+**Use `SELECT DISTINCT` users.name FROM users instead to have SQL do it all in one step.**
+
+SQL is built to be **fast**. It has a special query optimizer which takes a look at the whole query you’re about to run and it figures out exactly which tables it needs to join together and how it can most quickly execute the query. 
+
+The difference between using `SELECT` and `SELECT DISTINCT` is negligible compared to the time cost of doing it yourself.
+
+Learning your SQL will help you write better queries that can do more which will make your app much faster.
 
 ## The Importance of Data
 As human beings, we are limited in our capacity to remember things. Having tools that allow immediate access and analysis of data enables us to make better decisions.
