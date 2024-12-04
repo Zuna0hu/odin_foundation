@@ -197,6 +197,41 @@ null  null       1     Rutabaga
 null  null       3     Darth Vader
 ```
 
+---
+
+- **Another Example**:
+
+```Bash
+# Table 1 - Orders
+OrderID	CustomerID	OrderDate
+
+10308	2	1996-09-18
+10309	37	1996-09-19
+10310	77	1996-09-20
+
+# Table 2 - Customers
+CustomerID	CustomerName	ContactName	Country
+
+1	Alfreds Futterkiste	Maria Anders	Germany
+2	Ana Trujillo Emparedados y helados	Ana Trujillo	Mexico
+3	Antonio Moreno Taquería	Antonio Moreno	Mexico
+```
+
+Use the following SQL commands:
+
+```SQL
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+```
+
+It will output:
+```Bash
+OrderID	CustomerName	OrderDate
+
+10308	Ana Trujillo Emparedados y helados	9/18/1996
+```
+
 ### SQL Functions 
 Like AVG, COUNT, SUM and more.
 
