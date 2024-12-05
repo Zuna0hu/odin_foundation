@@ -18,7 +18,7 @@ INSERT INTO store VALUES
 (14, "sunglasses", "Attends", 10, "Canada"),
 (15, "water bottle", "Bouteille", 50, "Canada");
 
--- show data
+-- show data (select all the columns)
 SELECT * FROM store;
 
 -- show data by price
@@ -27,7 +27,7 @@ SELECT * FROM store ORDER BY price;
 -- show items more expensive than 20
 SELECT * FROM store WHERE price > 20 ORDER BY country;
 
--- show maximum price
+-- select id and name columns, show maximum price
 SELECT id, name, MAX(price) FROM store;
 
 -- show maximum price grouped by country
