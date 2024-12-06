@@ -46,3 +46,9 @@ SELECT DISTINCT gender, species FROM friends_of_pickles WHERE height_cm < 100;
 -- return a list of the distinct species of animals greater than 50cm in height
 SELECT DISTINCT species FROM friends_of_pickles WHERE height_cm > 50;
 -- this only selects the species column
+
+-- sorts the friends_of_pickles by height_cm in descending order
+SELECT * FROM friends_of_pickles ORDER BY height_cm DESC;
+
+-- return the single row (and all columns) of the tallest friends_of_pickles?
+SELECT * FROM friends_of_pickles ORDER BY height_cm DESC LIMIT 1;

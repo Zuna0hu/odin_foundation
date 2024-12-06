@@ -96,6 +96,26 @@ Note that even though there are multiple male dogs under that height, we only se
 
 #### ORDER BY
 
+If you want to sort the rows by some kind of attribute, you can use the `ORDER BY` keyword. 
+
+For example, if you want to sort the friends_of_pickles by name, you would run: `SELECT * FROM friends_of_pickles ORDER BY name;`. That returns the names in ascending alphabetical order.
+
+In order to put the names in descending order, you would add a `DESC` at the end of the query.
+
+`SELECT * FROM friends_of_pickles ORDER BY height_cm DESC;`
+
+#### LIMIT
+
+Often, tables contain millions of rows, and it can take a while to grab everything. If we just want to see a few examples of the data in a table, we can select the first few rows with the `LIMIT` keyword. If you use `ORDER BY`, you would get the first rows for that order.
+
+`SELECT * FROM friends_of_pickles ORDER BY height_cm LIMIT;`
+
+If you wanted to see the two shortest friends_of_pickles, you would run: `SELECT * FROM friends_of_pickles ORDER BY height_cm LIMIT 2;`
+
+Note:
+- Some variants of SQL do not use the `LIMIT` keyword.
+- The `LIMIT` keyword comes after the `DESC` keyword.
+`SELECT * FROM friends_of_pickles ORDER BY height_cm DESC LIMIT 2;`
 
 #### CRUD with Clauses
 Every CRUDdy command in SQL contains a few parts – the action (`statement`), the table it should run on, and the conditions (`clauses`). If you just do an action on a table without specifying conditions, it will apply to the whole database and you’ll probably break something.
