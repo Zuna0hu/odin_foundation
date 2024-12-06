@@ -49,6 +49,54 @@ Once your database is set up and you’ve got empty tables to work with, you use
 ### SQL Clauses 
 Like WHERE, LIKE, DISTINCT and more.
 
+#### WHERE
+
+If we wanted to grab all of the rows that correspond to humans, we would type
+
+`SELECT * FROM family_members WHERE species = 'human';`
+
+Note that the quotes have to be around the word human, as it is an explicit value, unlike a keyword such as WHERE.
+
+SQL accepts various inequality symbols, including:
+
+= "equal to"
+
+> "greater than"
+
+< "less than"
+
+>= "greater than or equal to"
+
+<= "less than or equal to"
+
+#### AND
+
+In the `WHERE` part of a query, you can search for multiple attributes by using the `AND` keyword. 
+
+For example, if you wanted to find the friends of Pickles that are over 25cm in height and are cats, you would run:
+
+`SELECT * FROM friends_of_pickles WHERE height_cm > 25 AND species = 'cat';`
+
+#### IN
+
+Using the WHERE clause, we can find rows where a value is in a list of several possible values.
+
+`SELECT * FROM friends_of_pickles WHERE species IN ('cat', 'human');` would return the friends_of_pickles that are either a cat or a human.
+
+To find rows that are not in a list, you use `NOT IN` instead of IN.
+
+#### DISTINCT
+
+By putting `DISTINCT` after `SELECT`, you do not return duplicates.
+
+For example, if you run
+`SELECT DISTINCT gender, species FROM friends_of_pickles WHERE height_cm < 100;`, you will get the gender/species combinations of the animals less than 100cm in height.
+
+Note that even though there are multiple male dogs under that height, we only see one row that returns "male" and "dog".
+
+#### ORDER BY
+
+
 #### CRUD with Clauses
 Every CRUDdy command in SQL contains a few parts – the action (`statement`), the table it should run on, and the conditions (`clauses`). If you just do an action on a table without specifying conditions, it will apply to the whole database and you’ll probably break something.
 
