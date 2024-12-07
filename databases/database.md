@@ -7,7 +7,7 @@ It can be relatively simple, like an Excel spreadsheet, or incredibly complex an
 ## SQL
 Compared to a normal programming language like you’ve already learned, **SQL (Structured Query Language)**, which is used to query databases, has a very short syntax… with only a small handful of verbs to learn. What trips people up is that you need to be able to visualize in your head what it’s going to be doing.
 
-The following content can be found in [How SQL can be used to organise and manage an overwhelming amount of data] (https://launchschool.com/books/sql/read/introduction) and you can also take this [video] (https://www.youtube.com/watch?v=z2kbsG8zsLM) as a reference.
+The following content can be found in [How SQL can be used to organise and manage an overwhelming amount of data](https://launchschool.com/books/sql/read/introduction) and you can also take this [video](https://www.youtube.com/watch?v=z2kbsG8zsLM) as a reference.
 
 
 SQL, which stands for **Structured Query Language**, is the programming language used to communicate with a relational database.
@@ -59,15 +59,15 @@ Note that the quotes have to be around the word human, as it is an explicit valu
 
 SQL accepts various inequality symbols, including:
 
-= "equal to"
+- `=`: "equal to"
 
-> "greater than"
+- `>`: "greater than"
 
-< "less than"
+- `<`: "less than"
 
->= "greater than or equal to"
+- `>=`: "greater than or equal to"
 
-<= "less than or equal to"
+- `<=`: "less than or equal to"
 
 #### AND
 
@@ -308,11 +308,49 @@ Sometimes you want to just return a single relevant value that aggregates a colu
 
 The function will operate on just a single column unless you specify *, which only works for some functions like COUNT (because you can not use `MAX` on the column of “name”?).
 
+#### COUNT
+
+- **COUNT(*)**: We can check the number of rows in a table by using the `COUNT` function.
+
+For example, if we are querying a table states_of_us, we'd expect 50 rows, or 500 rows in a table called fortune_500_companies.
+
+`SELECT COUNT(*) FROM friends_of_pickles;` would return the total number of rows in the table friends_of_pickles. 
+
+- **COUNT(*)...WHERE**: 
+
+We can combine `COUNT(*)` with `WHERE` to return the number of rows that matches the `WHERE` clause.
+
+For example, `SELECT COUNT(*) FROM friends_of_pickles WHERE species = 'human';` returns the numbers of friends of pickles that are humans.
+
+#### SUM
+
+We can use the `SUM` keyword in order to find the sum of a given value.
+
+For example, running `SELECT SUM(num_legs) FROM family_members;` returns the total number of legs in the family.
+
+#### AVG
+
+We can use the `AVG` keyword in order to find the average of a given value.
+
+For example, running `SELECT AVG(num_legs) FROM family_members;` returns the average number of legs of each family member.
+
+However, because of the way computers handle numbers, averages will not always be completely exact.
+
+#### MAX and MIN:
+
+We can use the `MAX` and `MIN` to find the maximum or minimum value of a table.
+
+To find the least number of legs in a family member, you can run `SELECT MIN(num_legs) FROM family_members;`
+
 #### Alias
 We can use aliases (`AS`) to rename columns or aggregate functions so you can call them by that alias later, e.g. `SELECT MAX(users.age) AS highest_age FROM users` will return a column called highest_age with the maximum age in it.
 
 
-#### GROUP BY
+#### Use Function with GROUP BY Clause
+
+When you `GROUP BY` something, you split the table into different piles based on the value of each row.
+
+For example, `SELECT COUNT(*), species FROM friends_of_pickles GROUP BY species;` would return the number of rows for each species.
 
 When you want to use aggregate functions like `COUNT` on very specific chunks of your data and then group them together, e.g. displaying the `COUNT` of posts for EACH user (as opposed to the count of all posts by all users). The commands would look like:
 
@@ -349,6 +387,27 @@ FROM Customers
 GROUP BY Country
 HAVING COUNT(CustomerID) > 10;
 ```
+
+#### Nested Queries
+
+In SQL, you can put a SQL query inside another SQL query.
+
+For example, to find the family members with the least number of legs,
+you can run:
+
+`SELECT * FROM family_members WHERE num_legs = (SELECT MIN(num_legs) FROM family_members);`
+
+The `SELECT` query inside the parentheses is executed first, and returns the minimum number of legs. Then, that value (2) is used in the outside query, to find all family members that have 2 legs.
+
+#### NULL
+
+Sometimes, in a given row, there is no value at all for a given column. For example, a dog does not have a favorite book, so in that case there is no point in putting a value in the favorite_book column, and the value is `NULL`. In order to find the rows where the value for a column is or is not `NULL`, you would use `IS NULL` or `IS NOT NULL`.
+
+#### Date
+
+Sometimes, a column can contain a date value. The first 4 digits represents the year, the next 2 digits represents the month, and the next 2 digits represents the day of the month. For example, `1985-07-20` would mean July 20, 1985.
+
+You can compare dates by using `<` and `>`. For example, `SELECT * FROM celebs_born WHERE birthdate < '1985-08-17';` returns a list of celebrities that were born before August 17th, 1985.
 
 ### SQL is Fast
 

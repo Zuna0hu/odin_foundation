@@ -16,6 +16,11 @@
 -- 6	Jumpy	male	dog	35
 -- 7	Sneakers	male	dog	55
 
+-- Table 3 - celebs_born
+-- id	name	birthdate
+-- 1	Michael Jordan	1963-02-17
+-- 2	Justin Timberlake	1981-01-31
+-- 3	Taylor Swift	1989-12-13
 -- return all rows in family_members where num_books_read is a value greater or equal to 180?
 SELECT * FROM family_members WHERE num_books_read >= 180;
 -- SELECT * means to select all columns
@@ -52,3 +57,30 @@ SELECT * FROM friends_of_pickles ORDER BY height_cm DESC;
 
 -- return the single row (and all columns) of the tallest friends_of_pickles?
 SELECT * FROM friends_of_pickles ORDER BY height_cm DESC LIMIT 1;
+
+-- returns the total number of rows in the table friends_of_pickles
+SELECT COUNT(*) FROM friends_of_pickles;
+
+-- return the number of rows in friends_of_pickles where the species is a dog
+SELECT COUNT(*) FROM friends_of_pickles WHERE species = 'dog';
+
+-- the total num_books_read made by this family
+SELECT SUM(num_books_read) FROM family_members;
+
+-- find the average num_books_read made by each family member
+SELECT AVG(num_books_read) FROM family_members;
+
+-- the highest num_books_read that a family member makes
+SELECT MAX(num_books_read) FROM family_members;
+
+-- return the tallest height for each species with the species name next to the height
+SELECT MAX(height_cm), species FROM friends_of_pickles GROUP BY species;
+
+-- return the family members that have the highest num_books_read
+SELECT * FROM family_members WHERE num_books_read = (SELECT MAX(num_books_read) FROM family_members);
+
+-- return all of the rows of family_members where favorite_book is not null?
+SELECT * FROM family_members WHERE favorite_book IS NOT NULL;
+
+-- return a list of celebrities that were born after September 1st, 1980
+SELECT * FROM celebs_born WHERE birthdate > '1980-09-01';
