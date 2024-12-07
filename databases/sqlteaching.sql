@@ -21,6 +21,53 @@
 -- 1	Michael Jordan	1963-02-17
 -- 2	Justin Timberlake	1981-01-31
 -- 3	Taylor Swift	1989-12-13
+
+-- Table 4 - character
+-- id	name
+-- 1	Doogie Howser
+-- 2	Barney Stinson
+-- 3	Lily Aldrin
+-- 4	Willow Rosenberg
+
+-- Table 5 - character_tv_show
+-- id	character_id	tv_show_name
+-- 1	4	Buffy the Vampire Slayer
+-- 2	3	How I Met Your Mother
+-- 3	2	How I Met Your Mother
+-- 4	1	Doogie Howser, M.D.
+
+-- Table 6 - character_actor
+-- id	character_id	actor_name
+-- 1	4	Alyson Hannigan
+-- 2	3	Alyson Hannigan
+-- 3	2	Neil Patrick Harris
+-- 4	1	Neil Patrick Harris
+
+-- Table 7 - tv_show
+-- id	name
+-- 1	Buffy the Vampire Slayer
+-- 2	How I Met Your Mother
+-- 3	Doogie Howser, M.D.
+
+-- Table 8 - new_character_tv_show
+-- id	character_id	tv_show_id
+-- 1	1	3
+-- 2	2	2
+-- 3	3	2
+-- 4	4	1
+
+-- Table 9 - actor
+-- id	name
+-- 1	Alyson Hannigan
+-- 2	Neil Patrick Harris
+
+-- Table 10 - new_character_actor
+-- id	character_id	actor_id
+-- 1	1	2
+-- 2	2	2
+-- 3	3	1
+-- 4	4	1
+
 -- return all rows in family_members where num_books_read is a value greater or equal to 180?
 SELECT * FROM family_members WHERE num_books_read >= 180;
 -- SELECT * means to select all columns
@@ -84,3 +131,10 @@ SELECT * FROM family_members WHERE favorite_book IS NOT NULL;
 
 -- return a list of celebrities that were born after September 1st, 1980
 SELECT * FROM celebs_born WHERE birthdate > '1980-09-01';
+
+-- use an inner join to pair each character name with the actor who plays them
+SELECT  character.name, character_actor.actor_name
+FROM character
+INNER JOIN character_actor
+ON character.id = character_actor.character_id;
+

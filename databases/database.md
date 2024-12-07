@@ -135,11 +135,53 @@ WHERE email='foo@bar.com';
 A close cousin of `SELECT`, for if you only want unique values of a column, is `SELECT DISTINCT`. Say you want a list of all the different names of your users without any duplicates… try `SELECT DISTINCT users.name FROM users`.
 
 #### JOIN Command
+
+Different parts of information can be stored in different tables, and in order to put them together, we use `INNER JOIN ... ON`. Joining tables gets to the core of SQL functionality, but it can get very complicated. 
+
 If you want to get all the posts created by a given user, you need to tell SQL which columns it should use to zip the tables together with the `ON` clause. Perform the “zipping” with the `JOIN` command. 
 
-If you mash two tables together where the data doesn’t perfectly match up (e.g. there are multiple posts for one user), which rows do you actually keep? 
+In relational databases, most of the time there are matching keys in different table, liking using `id` and `character_id` in tables of `character` and `character_tv_show`:
 
-Take the following two tables as example:
+```Bash
+-- Table - character
+-- id	name
+-- 1	Doogie Howser
+-- 2	Barney Stinson
+-- 3	Lily Aldrin
+-- 4	Willow Rosenberg
+
+-- Table - character_tv_show
+-- id	character_id	tv_show_name
+-- 1	4	Buffy the Vampire Slayer
+-- 2	3	How I Met Your Mother
+-- 3	2	How I Met Your Mother
+-- 4	1	Doogie Howser, M.D.
+```
+
+See that in `character_tv_show`, instead of storing both the character and TV show names (e.g. Willow Rosenberg and Buffy the Vampire Slayer), it stores the character_id as a substitute for the character name. This `character_id` refers to the matching `id` row from the character table.
+
+This is done so data is not **duplicated**. For example, if the name of a character were to change, you would only have to change the name of the character in one row.
+
+This allows us to "join" the tables together "on" that reference/common column.
+
+To get each character name with his/her TV show name, we can write
+
+```SQL
+SELECT character.name, character_tv_show.tv_show_name
+FROM character
+INNER JOIN character_tv_show
+ON character.id = character_tv_show.character_id;
+```
+
+This puts together every row in `character` with the corresponding row in `character_tv_show`, or vice versa.
+
+**Note**:
+- We use the syntax `table_name.column_name`. If we only used `column_name`, SQL might incorrectly assume which table it is coming from.
+- The example query above is written over multiple lines for readability, but that does not affect the query.
+
+---
+
+If you mash two tables together where the data doesn’t perfectly match up (e.g. there are multiple posts for one user), which rows do you actually keep? Take the following two tables as example:
 
 ```Bash
 id name       id  name
